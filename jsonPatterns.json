@@ -5,7 +5,7 @@
     },
     {
         "color": "green",
-        "pattern": "null"
+        "pattern": "false|null|true"
     },
     {
         "color": "yellow",
