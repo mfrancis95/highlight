@@ -1,14 +1,14 @@
 [
     {
-        "color": "red",
+        "color": 0,
         "pattern": "[-\\+]?\\d+(\\.(\\d+)?)?"
     },
     {
-        "color": "green",
+        "color": 1,
         "pattern": "false|null|true"
     },
     {
-        "color": "yellow",
+        "color": 2,
         "pattern": "\"[^\"]*\""
     }
 ]

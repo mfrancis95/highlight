@@ -7,16 +7,18 @@ with open("jsonPatterns.json") as f:
     patterns = load(f)
 
 parser = ArgumentParser("highlight")
+parser.add_argument("-c", "--colors")
 parser.add_argument("-f", "--file")
 args = parser.parse_args()
 
-colors = {
-    "default": "\033[39m",
-    "red": "\033[31m",
-    "green": "\033[32m",
-    "yellow": "\033[33m"
-}
-colorize = lambda match, color: colors[color] + sub("\033\[..m", "", match.group()) + colors["default"]
+colors = args.colors
+if colors:
+    with open(colors) as f:
+        colors = list(map(lambda color: "\033[" + str(color) + "m", load(f)))
+else:
+    colors = ["\033[31m", "\033[32m", "\033[33m"]
+
+colorize = lambda match, color: colors[color] + sub("\033\[..m", "", match.group()) + "\033[39m"
 
 def highlight(file):
     for line in file:
