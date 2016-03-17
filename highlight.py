@@ -1,12 +1,10 @@
-from highlighter import Highlighter
+import highlighter
 from json import load
 from argparse import ArgumentParser
 import sys
 
-highlighter = Highlighter()
-
 with open("jsonPatterns.json") as f:
-    highlighter.patterns["json"] = load(f)
+    patterns = load(f)
 
 parser = ArgumentParser("highlight")
 parser.add_argument("-c", "--colors")
@@ -16,10 +14,10 @@ args = parser.parse_args()
 colors = args.colors
 if colors:
     with open(colors) as f:
-        highlighter.colors = list(map(lambda color: "\033[" + str(color) + "m", load(f)))
+        colors = list(map(lambda color: "\033[" + str(color) + "m", load(f)))
 
 def highlight(file):
-    for line in highlighter.highlight(file, "json"):
+    for line in highlighter.highlight(file, patterns, colors):
         sys.stdout.write(line)
 
 file = args.file
